@@ -24,5 +24,15 @@ module.exports = {
         'other/open-source'
       ]
     }
+  ],
+  '/views/practice/': [
+    {
+      title: 'JS基础',
+      collapsable: true,
+      children: [
+        'debounceNThrottle',
+        'shuffle'
+      ]
+    }
   ]
 }
