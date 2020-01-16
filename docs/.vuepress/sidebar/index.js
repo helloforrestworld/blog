@@ -25,7 +25,7 @@ module.exports = {
       ]
     }
   ],
-  '/views/practice/': [
+  '/views/notes/': [
     {
       title: 'JS基础',
       collapsable: true,
