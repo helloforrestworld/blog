@@ -74,7 +74,6 @@ function debounce(func, wait, immediate) {
       var callNow = !timeout
       timeout = setTimeout(function() {
         timeout = null
-        func.apply(context, args)
       }, wait)
       if (callNow) func.apply(context, args)
     } else {
@@ -100,7 +99,6 @@ function debounce(func, wait = 300, immediate) {
 
       timeout = setTimeout(() => {
         timeout = null
-        func.apply(this, args)
       }, wait)
 
       if (callNow) func.apply(this, args)

@@ -21,3 +21,9 @@ function getRomdomInt(min, max) { // 生成min - max 的随机整数
   return _arr;
 };
 ```
+
+:::tip
+关于math.random延伸阅读
+[Crypto.getRandomValues()
+](https://developer.mozilla.org/zh-CN/docs/Web/API/RandomSource/getRandomValues)
+:::

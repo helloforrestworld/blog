@@ -31,7 +31,8 @@ module.exports = {
       collapsable: true,
       children: [
         'debounceNThrottle',
-        'shuffle'
+        'shuffle',
+        'copy'
       ]
     }
   ]
