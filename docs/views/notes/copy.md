@@ -17,7 +17,7 @@ title: 深拷贝与浅拷贝
 ```js
 // 基本类型
 var a = 1;
-var b = a;
+var b = a;`
 a = 2;
 console.log(a, b); // 2, 1 ，a b指向不同的数据
 

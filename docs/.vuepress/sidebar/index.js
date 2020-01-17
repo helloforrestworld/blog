@@ -1,27 +1,23 @@
 module.exports = {
   '/views/react-guide/': [
     {
-      title: '基础',
+      title: '实战',
       collapsable: false,
       children: [
-        'basic/form',
-        'basic/jsx'
+        '组件逻辑复用',
+        '组织css',
+        '状态管理',
+        '路由管理',
+        '脚手架搭建',
+        '项目目录设计'
       ]
     },
     {
       title: '进阶',
-      collapsable: true,
+      collapsable: false,
       children: [
-        'advanced/hook',
-        'advanced/styled-components',
-        'advanced/test'
-      ]
-    },
-    {
-      title: '其他',
-      collapsable: true,
-      children: [
-        'other/open-source'
+        'fiber架构',
+        'hooks实战'
       ]
     }
   ],
