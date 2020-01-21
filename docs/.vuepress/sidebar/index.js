@@ -31,5 +31,14 @@ module.exports = {
         'copy'
       ]
     }
+  ],
+  '/views/algorithm/': [
+    {
+      title: '基础部分',
+      collapsable: false,
+      children: [
+        'string'
+      ]
+    }
   ]
 }
