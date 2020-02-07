@@ -13,14 +13,4 @@ sidebarDepth: 0
 
 <!-- more -->
 
-## 了解webpack
 
-babababa~~
-
-## loader
-
-babababa~~
-
-## plugin
-
-bababababa~~

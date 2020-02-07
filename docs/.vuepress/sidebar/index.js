@@ -40,5 +40,14 @@ module.exports = {
         'string'
       ]
     }
+  ],
+  '/views/webpack/': [
+    {
+      title: 'webpack-practice',
+      collapsable: false,
+      children: [
+        'bundler'
+      ]
+    }
   ]
 }
