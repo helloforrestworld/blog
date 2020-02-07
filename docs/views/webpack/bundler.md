@@ -45,13 +45,7 @@ const ast = parser.parse(content, {
   sourceType: 'module'
 })
 ```
-入口文件长这样。
-```js
-import message from './message.js'
-
-console.log(message)
-```
-输出的ast。
+现在我们以入口文件index.js为🌰，输出一下ast。
 ```js
 Node {
   type: 'File',
@@ -79,7 +73,7 @@ Node {
 - dependencies(模块依赖)
 - code(模块代码)
 
-可以看到program的body里面有两个Node节点，对应源码中的两个语句, 具体再打印两个节点看看。
+先处理模块依赖，可以看到上面ast中program.body里面有两个Node节点，对应源码中的两个语句，然后我们打印出这两个Node。
 ```js
 [
   Node {
@@ -115,9 +109,9 @@ Node {
 ```
 两个节点分别为```ImportDeclaration```和```ExpressionStatement```类型。
 
-然后我们可以遍历所有的节点，将```ImportDeclaration```类型的节点提取出来，得出的就是这个模块依赖。
+找到所有```ImportDeclaration```类型节点，把节点source.value提取出来，得到的就是这个模块依赖。
 
-为了方便我们直接用babel提供的[traverse模块](https://babeljs.io/docs/en/babel-traverse)。
+这里我们直接用babel提供的[traverse模块](https://babeljs.io/docs/en/babel-traverse)。
 ```js
 const dependencies = {}
 traverse(ast, {
@@ -134,13 +128,13 @@ traverse(ast, {
   }
 })
 ```
-接下来，引入[@babel/core](https://babeljs.io/docs/en/babel-core), 调用里面的[transformFromAst](https://babeljs.io/docs/en/babel-core#transformfromast), 将代码转化为一下。
+依赖处理完了, 将ast翻译成js代码，这里用到[@babel/core](https://babeljs.io/docs/en/babel-core)里面的[transformFromAst](https://babeljs.io/docs/en/babel-core#transformfromast)方法。
 ```js
 const { code } = core.transformFromAst(ast, null, {
   presets: ['@babel/preset-env']
 })
 ```
-完整bundleAnalyser方法
+完整bundleAnalyser方法。
 ```js
 const bundleAnalyser = (filename) => {
   const content = fs.readFileSync(filename, 'utf-8')
@@ -172,9 +166,9 @@ const bundleAnalyser = (filename) => {
 上述方法只处理了单个模块，接下来我们需要根据入口文件的依赖，继续调用bundleAnalyser分析，通常的处理方式是递归，但是如果模块的依赖层级比较深时容易造成栈溢出。
 
 另一种方法用循环来处理。
-1. 首先解析入口文件，返回结果放入graphArray
-2. 循环graphArray, 遍历dependencies，向graphArray添加新解析的模块
-3. 如果第2步添加了新模块，循环继续，直到所有的嵌套的依赖都被解析完
+1. 首先解析入口文件，返回结果放入数组graphArray。
+2. 循环graphArray，遍历dependencies，调用bundleAnalyser逐个分析，把结果添加到graphArray后面。
+3. 如果第2步添加了新模块解析，循环继续，直到所有的嵌套的依赖都被解析完。
 
 ```js
 const makeDependenciesGraph = (entry) => {
@@ -187,7 +181,7 @@ const makeDependenciesGraph = (entry) => {
     }
   }
 
-  // 转换一下数据格式
+  // 转换一下数据格式，将数组转换为更好被查询的对象，以文件路径作为key。
   const graph = {}
   graphArray.forEach(item => {
     graph[item.filename] = {
@@ -244,7 +238,7 @@ const makeDependenciesGraph = (entry) => {
 
 ## generateCode(生成可执行代码)
 
-首先我们需要一个require方法, 从依赖里取出code, 然后```eval(code)```执行, 返回exports。
+要让上面依赖中的code能执行，首先我们需要一个require方法，从依赖里取出code，然后```eval(code)```执行， 返回exports。
 ```js
 function require(module) {
   var code = graph[module].code
@@ -262,9 +256,9 @@ var _message = _interopRequireDefault(require("./message.js"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 console.log(_message["default"]);
 ```
-执行```require("./message.js")```会报错，因为graph只有```"./src/message.js"```这个依赖，所以我们还需要改造一下require方法
+执行```require("./message.js")```会报错，因为graph只有```"./src/message.js"```这个依赖，所以我们还需要改造一下require方法。
 - 模块在闭包中执行。
-- 传递拼接路径后的require方法
+- 传递拼接路径后的require方法。
 ```js
 function require(module) {
   var code = graph[module].code
@@ -299,3 +293,23 @@ const generateCode = (entry) => {
   `
 }
 ```
+
+## 调试打包后的代码
+最后，为了梳理清楚打包后的文件是如何运行的，我们利用chrome断点逐步执行一下代码。
+我们将generateCode的输出写入到js文件中。
+
+```js
+const code = generateCode('./src/index.js')
+fs.writeFile('index.js', code, 'utf8', function(error){
+  if(error){
+      console.log(error)
+      return false;
+  }
+  console.log('打包完成。')
+})
+```
+
+运行```node --inspect --inspect-brk index.js```，你会在终端看到这一段输出```Debugger listening on ws://127.0.0.1:9229/292c6351-060a-44e0-bbdc-9fb78a216a9f```， 然后我们打开chrome浏览器控制台，可以看到左上角Node图标变绿色了，点击一下，就可以进入调试界面，一直F11，逐步执行一下代码。
+![20200208010650-2020-2-8-1-6-50.png](http://qiniumovie.hasakei66.com/images/20200208010650-2020-2-8-1-6-50.png)
+
+最后，bundler的功能非常简陋，项目也没有什么实际的意义，只是作为一个简单的梳理，理解打包的原理，供大家参考[源码地址](https://github.com/helloforrestworld/webpack-stuff/tree/master/bundler)。
