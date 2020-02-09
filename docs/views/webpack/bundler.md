@@ -1,5 +1,5 @@
 ---
-title: 写一个简单的bundler
+title: 一个简单的bundler
 ---
 
 ## 总览

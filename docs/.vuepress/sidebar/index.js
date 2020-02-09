@@ -43,8 +43,16 @@ module.exports = {
   ],
   '/views/webpack/': [
     {
-      title: 'webpack-practice',
-      collapsable: false,
+      title: 'Webpack笔记',
+      collapsable: true,
+      children: [
+        'concept',
+        'basic',
+      ]
+    },
+    {
+      title: 'Webpack实战',
+      collapsable: true,
       children: [
         'bundler'
       ]
