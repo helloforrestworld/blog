@@ -49,12 +49,12 @@ module.exports = {
         'concept',
         'basic',
         'env',
-        'ts-support',
         'hmr',
         'optimization',
         'build-speed',
         'multiple-build',
-        'library-build'
+        'library-build',
+        'ts-support',
       ]
     },
     {

@@ -153,18 +153,18 @@ webpack4.x提供更多的[环境变量配置](https://webpack.docschina.org/guid
 webpack --env.NODE_ENV=local --env.production --progress --testing.a=3
 ```
 **webpack.config.js**
-配置文件不再导出一个对象，而是导出一个方法，第一个参数接受env，第二个参数接受其他参数，最终这个方法返回的对象就是导出的配置。
+配置文件不再导出一个对象，而是导出一个方法，第一个返回env，第二个返回所有参数集合，最终这个方法返回的对象就是导出的配置。
 ```js
 module.exports = (env, args) => {
   console.log(env) // { NODE_ENV: 'local', production: true }
-  console.log(args.progress)
+  console.log(args)
   /*
-  {
-    config: './build/webpack.prod.js',
-    env: { NODE_ENV: 'local', production: true },
-    process: true,
-    testing: { a: 3 },
-  }
+    {
+      config: './build/webpack.prod.js',
+      env: { NODE_ENV: 'local', production: true },
+      process: true,
+      testing: { a: 3 },
+    }
   */
   return {
 
