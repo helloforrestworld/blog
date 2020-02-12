@@ -50,7 +50,9 @@ module.exports = {
     lastUpdated: "Last Updated",
     author: "helloforrestworld",
     authorAvatar: "/idea.png",
-    startYear: "2017"
+    startYear: "2019",
+    record: "粤ICP备18054258号-1",
+    recordLink: "http://icp.chinaz.com/info?q=hasakei66.com"
   },
   markdown: {
     lineNumbers: true
