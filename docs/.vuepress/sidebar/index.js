@@ -48,6 +48,13 @@ module.exports = {
       children: [
         'concept',
         'basic',
+        'env',
+        'ts-support',
+        'hmr',
+        'optimization',
+        'build-speed',
+        'multiple-build',
+        'library-build'
       ]
     },
     {

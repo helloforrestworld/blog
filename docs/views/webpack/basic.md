@@ -2,6 +2,10 @@
 title: 搭建基础开发环境
 ---
 
+:::tip
+[本章配置代码](https://github.com/helloforrestworld/webpack-stuff/tree/basic-set/guide)
+:::
+
 ## HTML模版
 
 创建目录public加入index.html模板文件。
