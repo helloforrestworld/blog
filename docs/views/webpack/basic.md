@@ -82,7 +82,41 @@ module.exports = {
 
 也可以自己写一个node服务器，通过[webpack-dev-middleware](https://webpack.docschina.org/guides/development/#%E4%BD%BF%E7%94%A8-webpack-dev-server)把 webpack 处理过的文件发送到一个 server。
 
-## 样式
+## 处理图片资源&iconfont
+
+使用```url-loader``` ```file-loader```，将图片文件打包到images目录下，字体文件打包到fonts下。
+
+```url-loader```和```file-loader```的区别就是多了limit的配置，可以将较小的文件打包到js文件中，减少url请求。
+```js
+module.exports = {
+  module: {
+    rules: [
+      // ...
+      {
+        test: /\.(jpg|png|gif)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            limit: 2048, // 小于2kb以DataUrl打包
+            outputPath: 'images/',
+            name: '[name]-[hash].[ext]',
+          },
+        },
+      },
+      {
+        test: /\.(eot|ttf|svg|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          outputPath: 'fonts/',
+          name: '[name]-[hash].[ext]',
+        },
+      },
+    ]
+  }
+}
+```
+
+## 打包样式文件
 ### 配置css
 支持基本的css，并且通过```style-loader```插入到html中。
 ```js
