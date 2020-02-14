@@ -5,6 +5,7 @@ date: 2020-1-10
 tags:
   - 前端工程化
 sidebarDepth: 0
+sticky: 2
 ---
 
 :::tip

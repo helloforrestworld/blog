@@ -647,6 +647,10 @@ module.exports = {
 ```
 配置完成后，vscode不仅能根据你目录```.eslintrc*```检测你的代码， 并且保存代码会自动修正不符合规范的代码。
 
+:::tip
+如果要让```eslint```识别```import()```等实验性语法可以参考[代码分割](/views/webpack/optimization.html#%E4%BB%A3%E7%A0%81%E5%88%86%E5%89%B2-code-splitting)里面的动态加载模块。
+:::
+
 ### pre-commit钩子
 如果项目使用了git,可以通过使用pre-commit钩子在每次提交前检测，如果检测失败则禁止提交。可以在很大一定程度上保证代码质量。
 
