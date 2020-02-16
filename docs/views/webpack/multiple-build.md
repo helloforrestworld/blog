@@ -2,6 +2,10 @@
 title: '多页应用打包'
 ---
 
+:::tip
+[本章配置代码](https://github.com/helloforrestworld/webpack-stuff/tree/multiple-page/guide)
+:::
+
 多页面配置需要写在```webpack.common.js```，思路非常简单。
 
 - 配置多个入口文件。
