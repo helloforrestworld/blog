@@ -207,6 +207,53 @@ module.exports = {
 
 也就是```webpack5```后```OptimizeCSSAssetsPlugin```也会内置。
 
+**图片压缩**
+
+在一般的项目中，图片资源会占前端资源的很大一部分，既然代码都进行压缩了，占大头的图片就更不用说了。
+
+[image-webpack-loader](https://github.com/tcoopman/image-webpack-loader)
+```js
+module.exports = {
+  module: {
+    rules: [
+      // ...
+      {
+        test: /\.(gif|png|jpe?g|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 2048
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              gifsicle: {
+                interlaced: false,
+              },
+              // Compress JPG & PNG images into WEBP
+              webp: {
+                quality: 75
+              }
+            }
+          },
+        ]
+      },
+    ]
+  }
+}
+```
+
+![20200216105546-2020-2-16-10-55-47.png](http://qiniumovie.hasakei66.com/images/20200216105546-2020-2-16-10-55-47.png)
+
+打包的时候可能报错，原因是缺少一些依赖，对应安装上就上了。```npm i cwebp-bin -D``` ```npm i mozjpeg -D```
+
+
 
 ## Tree Shaking
 

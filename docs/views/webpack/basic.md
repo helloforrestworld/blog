@@ -86,7 +86,8 @@ module.exports = {
 
 使用```url-loader``` ```file-loader```，将图片文件打包到images目录下，字体文件打包到fonts下。
 
-```url-loader```和```file-loader```的区别就是多了limit的配置，可以将较小的文件打包到js文件中，减少url请求。
+这俩的的区别就是```url-loader```多了limit的配置，可以将较小的文件打包到js文件中，减少url请求。
+
 ```js
 module.exports = {
   module: {
@@ -367,10 +368,28 @@ module.exports = {
 
 ### @babel/preset-env
 
+安装需要的依赖。
 ```bash
 npm i babel-loader @babel/core @babel/preset-env -D
 ```
+配置```babel-loader```。
+```js
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      // ...
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader'],
+      }
+    ]
+  }
+}
 
+```
+根目录新建一个.babelrc文件。
 ```js
 // .babelrc
 {
@@ -379,12 +398,12 @@ npm i babel-loader @babel/core @babel/preset-env -D
   ]
 }
 ```
-这样能正确编译const、箭头函数等，然后还需要处理一些如Promise、Array.include等polyfill, 可以直接安装@babel/polyfill, 然后在入口文件引入。
+这样能正确编译const、箭头函数等，然后还需要处理一些如```Promise```、```Array.include```等polyfill, 可以直接安装```@babel/polyfill```, 然后在入口文件引入。
 但是这样会全局引入polyfill包， 代码体积会增加几百k。
 
-实际上要做到按需引入，配置非常简单，只需要配置```@babel/preset```的useBuiltIns，然后安装```corejs```， 然后可以把@babel/polyfill删除了。
+实际上要做到按需引入，配置非常简单，只需要配置```@babel/preset```的useBuiltIns，然后安装```corejs```， 然后可以把```@babel/polyfill```删除了。
 
-> Since @babel/polyfill was deprecated in 7.4.0, we recommend directly adding core-js and setting the version via the corejs option.
+> Since ```@babel/polyfill``` was deprecated in 7.4.0, we recommend directly adding core-js and setting the version via the corejs option.
 
 core-js是什么
 - 它是JavaScript标准库的polyfill

@@ -52,9 +52,7 @@ module.exports = {
         'hmr',
         'optimization',
         'build-speed',
-        'multiple-build',
-        'library-build',
-        'ts-support',
+        'multiple-build'
       ]
     },
     {
