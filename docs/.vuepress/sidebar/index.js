@@ -62,5 +62,20 @@ module.exports = {
         'bundler'
       ]
     }
-  ]
+  ],
+  '/views/vue-guide/': [
+    {
+      title: '基础',
+      collapsable: false,
+      children: [
+      ]
+    },
+    {
+      title: '进阶',
+      collapsable: false,
+      children: [
+        'vue-source2.0',
+      ]
+    }
+  ],
 }

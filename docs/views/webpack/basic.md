@@ -398,6 +398,7 @@ module.exports = {
   ]
 }
 ```
+
 这样能正确编译const、箭头函数等，然后还需要处理一些如```Promise```、```Array.include```等polyfill, 可以直接安装```@babel/polyfill```, 然后在入口文件引入。
 但是这样会全局引入polyfill包， 代码体积会增加几百k。
 
@@ -433,8 +434,8 @@ core-js是什么
 {
   "presets": [
     ["@babel/preset-env", {
-      useBuiltIns: 'usage',
-      corejs: '3'
+      "useBuiltIns": "usage",
+      "corejs": 3
     }]
   ]
 }
