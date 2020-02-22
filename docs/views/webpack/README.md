@@ -1,11 +1,10 @@
 ---
-title: Webpack深入学习
+title: Webpack实战指南
 categories: 前端
 date: 2020-1-10
 tags:
   - 前端工程化
 sidebarDepth: 0
-sticky: 2
 ---
 
 :::tip
