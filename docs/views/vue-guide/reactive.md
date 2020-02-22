@@ -66,7 +66,7 @@ function initState (vm) {
 
 ## 2️.观察对象和数组
 
-### 1️⃣观察对象
+### 1️⃣观察对象1
 
 这一节的开始我们先要了解[defineProperty](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)，这里就不多介绍了。
 

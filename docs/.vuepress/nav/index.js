@@ -22,6 +22,11 @@ module.exports = [
         "text": "GitHub",
         "link": "https://github.com/helloforrestworld",
         "icon": "reco-github"
+      },
+      {
+        "text": "掘金",
+        "link": "https://juejin.im/user/593274962f301e006beba0c3",
+        "icon": "reco-juejin"
       }
     ]
   }
