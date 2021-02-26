@@ -1,7 +1,7 @@
 import { defineConfig } from 'dumi';
 
 export default defineConfig({
-  title: 'Algorithm GuideBook',
+  title: 'Blog',
   mode: 'site',
   // more config: https://d.umijs.org/config
 });
